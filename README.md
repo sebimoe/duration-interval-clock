@@ -1,6 +1,6 @@
 # `duration-interval-clock` [github](https://github.com/sebimoe/duration-interval-clock), [npm](https://www.npmjs.com/package/duration-interval-clock)
 
-A small library to measure duration and interval, including averaging.
+A small library to measure the duration and interval of execution, including averaging.
 
 Measures time between `start()`, `end()` to provide duration, and between `start()` and the subsequent `start()` to provide interval, both with built-in window-averaging.
 
@@ -10,6 +10,8 @@ Measures time between `start()`, `end()` to provide duration, and between `start
 Simple usage:
 
 ```ts
+import { DurationIntervalClock } from 'duration-interval-clock';
+
 // defaults to average over 10 last measurements
 const dic = new DurationIntervalClock();
 
@@ -30,6 +32,8 @@ dic.lastInterval, dic.averageInterval
 Example:
 
 ```ts
+import { DurationIntervalClock } from 'duration-interval-clock';
+
 // average over last 5 measurements
 const dic = new DurationIntervalClock(5);
 
