@@ -1,0 +1,47 @@
+{
+  "name": "duration-interval-clock",
+  "version": "1.0.0",
+  "description": "A simple way to measure duration and interval, including averaging.",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "types": "dist/types/index.d.ts",
+  "exports": {
+    ".": {
+      "require": "./dist/cjs/index.js",
+      "import": "./dist/esm/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "npm-run-all clean build:esm build:cjs",
+    "build:esm": "tsc --project tsconfig.esm.json",
+    "build:cjs": "tsc --project tsconfig.cjs.json",
+    "clean": "rimraf dist",
+    "test": "uvu -r ts-node/register tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sebimoe/duration-interval-clock.git"
+  },
+  "keywords": [
+    "duration",
+    "interval",
+    "clock",
+    "performance"
+  ],
+  "author": "sebimoe",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sebimoe/duration-interval-clock/issues"
+  },
+  "homepage": "https://github.com/sebimoe/duration-interval-clock#readme",
+  "devDependencies": {
+    "npm-run-all": "^4.1.5",
+    "rimraf": "^6.0.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.6.3",
+    "uvu": "^0.5.6"
+  }
+}
