@@ -65,9 +65,11 @@ class DurationIntervalClock {
     constructor(sampleTargetCount?: number = 10);
     
     reset(): void;
+    cancel(ignoreIfNotStarted?: boolean = false): void; // cancel last start()
     
     start(endIfAlreadyStarted?: boolean = false): void;
-    end(ignoreIfNotStarted?: boolean = false): void;
+    // itemsProcessed may be a positive number which will divide measured duration
+    end(ignoreIfNotStarted?: boolean = false, itemsProcessed?: number): void;
     
     measureAsync<T>(fn: () => Promise<T>): Promise<T>;
     measureSync<T>(fn: () => T): T;

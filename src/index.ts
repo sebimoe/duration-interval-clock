@@ -3,6 +3,7 @@ export class DurationIntervalClock {
   durationsSamples: number[] = [];
   intervalSamples: number[] = [];
   private lastStart: number | null = null;
+  private prevStart: number | null = null;
   private started: boolean = false;
   
   constructor(public sampleTargetCount: number = 10) {
@@ -16,6 +17,19 @@ export class DurationIntervalClock {
     this.lastStart = null;
     this.durationsSamples = [];
     this.intervalSamples = [];
+  }
+
+  cancel(ignoreIfNotStarted = false) {
+    if(!this.started) {
+      if(ignoreIfNotStarted) {
+        return;
+      }else{
+        throw new Error("Clock cancelled while it was not started.");
+      }
+    }
+    this.started = false;
+    this.lastStart = this.prevStart;
+    this.intervalSamples.pop();
   }
 
   start(endIfAlreadyStarted = false) {
@@ -33,10 +47,11 @@ export class DurationIntervalClock {
       this.intervalSamples.push(now - this.lastStart);
       while(this.intervalSamples.length > this.sampleTargetCount) this.intervalSamples.shift();
     }
+    this.prevStart = this.lastStart;
     this.lastStart = now;
   }
 
-  end(ignoreIfNotStarted = false) {
+  end(ignoreIfNotStarted = false, itemsProcessed?: number) {
     if(!this.started) {
       if(ignoreIfNotStarted) {
         return;
@@ -46,7 +61,14 @@ export class DurationIntervalClock {
     }
     this.started = false;
 
-    this.durationsSamples.push(performance.now() - this.lastStart!);
+    let duration = performance.now() - this.lastStart!;
+
+    if(typeof itemsProcessed === "number") {
+      if(!(itemsProcessed > 0)) throw new Error("itemsProcessed must be a positive number.");
+      duration /= itemsProcessed;
+    }
+
+    this.durationsSamples.push();
     while(this.durationsSamples.length > this.sampleTargetCount) this.durationsSamples.shift();
   }
 

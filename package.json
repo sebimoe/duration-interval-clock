@@ -1,6 +1,6 @@
 {
   "name": "duration-interval-clock",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A small library to measure duration and interval, including averaging.",
   "main": "./dist/cjs/index.js",
   "module": "./dist/esm/index.js",
